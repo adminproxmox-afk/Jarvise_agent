@@ -1,0 +1,291 @@
+assistant:
+  name: JARVIS
+  locale: ru-RU
+  greeting: "Добро пожаловать, сэр. Системы онлайн. Запускаю рабочее окружение."
+  ready_phrase: "Рабочее окружение готово."
+  command_ack: "Выполняю."
+  personality:
+    tone: calm
+    verbosity: concise
+    style: technical
+
+api:
+  host: 127.0.0.1
+  port: 8765
+  cors_origins:
+    - http://127.0.0.1:5173
+    - http://localhost:5173
+
+memory:
+  path: memory/jarvis.sqlite3
+
+startup:
+  sound_path: ""
+  overlay_duration_ms: 4200
+  launch_workspace_on_activation: true
+
+clap:
+  enabled: true
+  device_index:
+  sample_rate: 44100
+  chunk_size: 1024
+  energy_threshold: 0.68
+  min_peak_distance_ms: 140
+  double_clap_window_ms: 650
+  cooldown_ms: 2500
+  calibration_seconds: 2.5
+  adaptive_noise_floor: true
+
+voice:
+  stt_engine: vosk
+  tts_engine: pyttsx3
+  whisper_model: base
+  vosk_model_path: models/vosk
+  elevenlabs_voice_id: ""
+  speak_on_startup: true
+  speak_command_responses: true
+  command_listening_seconds: 7
+  pyttsx3:
+    rate: 168
+    volume: 0.82
+    quiet_rate: 150
+    quiet_volume: 0.46
+    preferred_voice_keywords:
+      - Pavel
+      - Dmitry
+      - David
+      - George
+      - Guy
+      - Mark
+    prefix_pause_ms: 120
+
+ai:
+  provider: gemini
+  free_only: true
+  agentic_commands: true
+  max_tool_calls_per_request: 5
+  model_selection_path: memory/model_selection.json
+  model_cache_seconds: 300
+  free_providers:
+    - gemini
+    - groq
+    - ollama
+    - lmstudio
+    - local_llm
+  openai_model: gpt-4.1-mini
+  ollama_model: llama3.1
+  ollama_host: http://127.0.0.1:11434
+  timeout_seconds: 12
+  local_intent_threshold: 0.58
+  routing:
+    coding: gemini
+    planning: gemini
+    search: gemini
+    local: ollama
+    analysis: gemini
+    chat: gemini
+  models:
+    openai: gpt-4.1-mini
+    claude: claude-3-5-sonnet-latest
+    gemini: gemini-2.0-flash
+    deepseek: deepseek-chat
+    groq: llama-3.3-70b-versatile
+    openrouter: google/gemini-2.0-flash-exp:free
+    ollama: llama3.1
+    lmstudio: local-model
+    local_llm: local-model
+  available_models:
+    gemini:
+      - gemini-2.0-flash
+    groq:
+      - llama-3.3-70b-versatile
+    openrouter:
+      - google/gemini-2.0-flash-exp:free
+    ollama:
+      - llama3.1
+  base_urls:
+    openai: https://api.openai.com/v1
+    deepseek: https://api.deepseek.com/v1
+    groq: https://api.groq.com/openai/v1
+    openrouter: https://openrouter.ai/api/v1
+    lmstudio: http://127.0.0.1:1234/v1
+    local_llm: http://127.0.0.1:8080/v1
+  system_prompt: >
+    Ты JARVIS, спокойный и точный desktop AI-assistant. Твой стиль:
+    коротко, уверенно, технологично, без театральности. Ты помогаешь
+    управлять рабочей средой, локальной музыкой, режимами фокуса и
+    системными действиями. Понимай русский, украинский и английский,
+    включая смешанные фразы вроде "відкрий chrome" или "запусти music",
+    и отвечай на языке последнего сообщения. Если команда неясна,
+    уточни один конкретный вопрос вместо длинного объяснения.
+
+tasks:
+  persist_state: true
+  auto_start_from_chat: true
+
+telegram:
+  enabled: true
+  bot_token: ${TELEGRAM_BOT_TOKEN}
+  chat_id: ${TELEGRAM_CHAT_ID}
+  progress_report_interval_seconds: 300
+
+tools:
+  access_mode: developer
+  allowed_roots:
+    - "."
+
+security:
+  mode: full_control
+
+music:
+  enabled: true
+  library_path: music
+  default_file: "The_Clash_-_Should_I_Stay_Or_Should_I_Go_AfishaFm.ru_320_kbps_(mp3.pm).mp3"
+  default_query: "The Clash Should I Stay Or Should I Go"
+  focus_query: "The Clash Should I Stay Or Should I Go"
+  play_on_activation: true
+  volume: 74
+  external_fallback: true
+  extensions: [.mp3, .wav, .m4a, .wma, .aac, .flac]
+
+workspace:
+  chrome_tabs: []
+  apps:
+    - id: vscode
+      name: VS Code
+      enabled: true
+      type: process
+      command: code
+      args: ["."]
+      process_names: [Code.exe]
+      startup_order: 20
+      wait_seconds: 0.8
+      skip_if_running: true
+
+    - id: android_studio
+      name: Android Studio
+      enabled: true
+      type: process
+      command: studio64.exe
+      path_candidates:
+        - C:/Program Files/Android/Android Studio/bin/studio64.exe
+        - C:/Users/%USERNAME%/AppData/Local/Programs/Android Studio/bin/studio64.exe
+      process_names: [studio64.exe]
+      startup_order: 30
+      wait_seconds: 0.8
+      skip_if_running: true
+
+    - id: chrome
+      name: Chrome
+      enabled: true
+      type: process
+      command: chrome.exe
+      path_candidates:
+        - C:/Program Files/Google/Chrome/Application/chrome.exe
+        - C:/Program Files (x86)/Google/Chrome/Application/chrome.exe
+      process_names: [chrome.exe]
+      startup_order: 40
+      wait_seconds: 0.5
+      skip_if_running: true
+
+    - id: telegram
+      name: AyuGram
+      enabled: true
+      type: process
+      command: C:/AG/AyuGram.exe
+      path_candidates:
+        - C:/AG/AyuGram.exe
+      process_names: [AyuGram.exe]
+      startup_order: 50
+      wait_seconds: 0.4
+      skip_if_running: true
+
+    - id: discord
+      name: Discord
+      enabled: true
+      type: process
+      command: Discord.exe
+      process_names: [Discord.exe]
+      startup_order: 60
+      wait_seconds: 0.4
+      skip_if_running: true
+
+    - id: github
+      name: GitHub
+      enabled: false
+      type: url
+      command: https://github.com/
+      startup_order: 70
+      wait_seconds: 0.2
+      skip_if_running: false
+
+    - id: terminal
+      name: Terminal
+      enabled: true
+      type: process
+      command: wt
+      args: ["-d", "."]
+      process_names: [WindowsTerminal.exe]
+      startup_order: 80
+      wait_seconds: 0.3
+      skip_if_running: false
+
+    - id: codex_cursor
+      name: Codex/Cursor
+      enabled: true
+      type: process
+      command: cursor
+      args: ["."]
+      process_names: [Cursor.exe]
+      startup_order: 90
+      wait_seconds: 0.4
+      skip_if_running: true
+
+    - id: docker_desktop
+      name: Docker Desktop
+      enabled: false
+      type: process
+      command: Docker Desktop.exe
+      path_candidates:
+        - C:/Program Files/Docker/Docker/Docker Desktop.exe
+      process_names: [Docker Desktop.exe, com.docker.backend.exe]
+      startup_order: 100
+      wait_seconds: 0.6
+      skip_if_running: true
+
+    - id: local_dev_server
+      name: Local Dev Server
+      enabled: false
+      type: terminal
+      command: npm run dev
+      cwd: ui
+      startup_order: 110
+      wait_seconds: 0.2
+      skip_if_running: false
+
+focus:
+  close_processes:
+    - Discord.exe
+    - Telegram.exe
+    - AyuGram.exe
+  keep_processes:
+    - Code.exe
+    - chrome.exe
+
+modes:
+  coding:
+    workspace: true
+    music_query: default_query
+  focus:
+    close_distractions: true
+    music_query: focus_query
+    notifications: off
+  gaming:
+    close_distractions: true
+    notifications: off
+  night:
+    ui_brightness: 0.55
+    voice_profile: quiet
+
+safety:
+  allow_shutdown_command: false

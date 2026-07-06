@@ -1,0 +1,43 @@
+clap:
+  device_index: 0
+  energy_threshold: 0.58
+
+startup:
+  sound_path: assets/sounds/startup.wav
+
+voice:
+  pyttsx3:
+    preferred_voice_keywords: [Pavel, Dmitry, David, George]
+
+ai:
+  provider: ollama
+  free_only: true
+  ollama_model: llama3
+  ollama_host: http://127.0.0.1:11434
+  models:
+    ollama: llama3
+
+music:
+  library_path: music
+  default_file: "The_Clash_-_Should_I_Stay_Or_Should_I_Go_AfishaFm.ru_320_kbps_(mp3.pm).mp3"
+  default_query: "The Clash Should I Stay Or Should I Go"
+  volume: 74
+
+workspace:
+  chrome_tabs: []
+  apps:
+    - id: chrome
+      command: chrome.exe
+      args: []
+      skip_if_running: true
+    - id: telegram
+      name: AyuGram
+      command: C:/AG/AyuGram.exe
+      path_candidates:
+        - C:/AG/AyuGram.exe
+      process_names: [AyuGram.exe]
+    - id: local_dev_server
+      enabled: true
+      type: terminal
+      command: npm run dev
+      cwd: E:/app/your-project

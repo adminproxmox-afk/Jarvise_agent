@@ -1,0 +1,5 @@
+# Optional microphone and STT stack.
+# PyAudio may require a prebuilt wheel on some Windows/Python combinations.
+pyaudio>=0.2.14
+vosk>=0.3.45
+openai-whisper>=20240930

@@ -1,0 +1,71 @@
+{
+  "assistant": {
+    "name": "JARVIS",
+    "start_hidden": true,
+    "enable_autorun": true
+  },
+  "clap": {
+    "enabled": true,
+    "sensitivity": 0.18,
+    "double_clap_window_ms": 650,
+    "min_clap_gap_ms": 140,
+    "cooldown_ms": 2800,
+    "noise_floor_multiplier": 4.4,
+    "adaptive_noise": true
+  },
+  "startup": {
+    "sound_path": "",
+    "overlay_duration_ms": 5200
+  },
+  "spotify": {
+    "enabled": true,
+    "process_name": "Spotify.exe",
+    "launch_uri": "spotify:",
+    "track_uri": "spotify:track:39shmbIHICJ2Wxnk1fPSdz",
+    "track_name": "The Clash - Should I Stay or Should I Go",
+    "send_media_play_key": true,
+    "startup_delay_ms": 1600
+  },
+  "workspace": {
+    "chrome": {
+      "enabled": true,
+      "process_name": "chrome.exe",
+      "command": "chrome.exe",
+      "skip_if_running": true
+    },
+    "ayugram": {
+      "enabled": true,
+      "process_name": "AyuGram.exe",
+      "command": "C:\\AG\\AyuGram.exe",
+      "skip_if_running": true
+    },
+    "vscode": {
+      "enabled": true,
+      "process_name": "Code.exe",
+      "command": "code.exe",
+      "skip_if_running": true,
+      "path_candidates": [
+        "%LOCALAPPDATA%\\Programs\\Microsoft VS Code\\Code.exe",
+        "%ProgramFiles%\\Microsoft VS Code\\Code.exe"
+      ]
+    },
+    "android_studio": {
+      "enabled": true,
+      "process_name": "studio64.exe",
+      "command": "studio64.exe",
+      "skip_if_running": true,
+      "path_candidates": [
+        "%ProgramFiles%\\Android\\Android Studio\\bin\\studio64.exe",
+        "%LOCALAPPDATA%\\Programs\\Android Studio\\bin\\studio64.exe"
+      ]
+    }
+  },
+  "ui": {
+    "opacity": 0.88,
+    "accent": "#36E8FF",
+    "warm_accent": "#FFD166"
+  },
+  "logging": {
+    "path": "logs\\jarvis-native.log"
+  }
+}
